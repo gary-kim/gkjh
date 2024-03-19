@@ -1,5 +1,7 @@
 ---
 image: fedora/39
+packages:
+  - python-pip
 sources:
   - "https://git.sr.ht/~gary-kim/gkjh"
 tasks:
