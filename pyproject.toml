@@ -1,0 +1,15 @@
+[project]
+name = "gkjh"
+description = "Gary Kim Jupyter Helpers"
+version = "0.1.0"
+readme = "README.md"
+
+dependencies = [
+    "sympy",
+    "matplotlib"
+]
+
+[[project.authors]]
+name = "Gary Kim"
+email = "gary@garykim.dev"
+
