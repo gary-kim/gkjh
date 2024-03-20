@@ -7,7 +7,7 @@ assignments.
 
 ### License
 
-Copyright (c) 2024 Gary Kim <<gary@garykim.dev>>;
+Copyright (c) 2024 Gary Kim <<gary@garykim.dev>>
 
 Licensed under [AGPL-3.0-or-later](./LICENSE).
 
