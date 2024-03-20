@@ -1,5 +1,7 @@
 # GKJH
 
+[![builds.sr.ht status](https://builds.sr.ht/~gary-kim/gkjh.svg)](https://builds.sr.ht/~gary-kim/gkjh)
+
 Personal miscellaneous helpers for Jupyter notebooks. Used for school
 assignments.
 
