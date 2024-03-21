@@ -19,10 +19,13 @@ Miscellaneous functions as part of GKJH.
 Many unnecessary functions are currently part of this module
 """
 
-import itertools
 import math
 
-from IPython.display import display, display_latex
+try:
+    from IPython.display import display, display_latex
+except ImportError:
+    display = lambda *a, **b: None
+    display_latex = lambda *a, **b: None
 
 import sympy as sp
 from sympy.physics import units
