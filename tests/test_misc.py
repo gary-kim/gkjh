@@ -35,3 +35,20 @@ def test_subs_with_fns():
     assert subs(b, vals) == 4
     assert subs(c, vals) == 100
     assert subs(d, vals) == 20
+
+
+def test_subs_with_fns_and_known():
+    a, b, c, e = sp.symbols("a, b, c, e")
+
+    d = sp.Function("d")(a)
+
+    vals = {}
+    vals[b] = 4
+    vals[c] = d * 5
+    vals[d] = a * 4
+    vals[e] = d.subs(a, 3)
+
+    assert subs(b, vals) == 4
+    assert sp.Eq(subs(c, vals), 20 * a, evaluate=True)
+    assert sp.Eq(subs(d, vals), 4 * a, evaluate=True)
+    assert subs(e, vals) == 12

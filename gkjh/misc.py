@@ -62,7 +62,7 @@ def subs(expr, vals, recurse=math.inf):
                 t_func = match_by_function(x.func, vals)
                 if t_func is None:
                     continue
-                tmp = vals[t_func].subs(x.args, t_func.args)
+                tmp = vals[t_func].subs(dict(zip(t_func.args, x.args)))
                 n_expr = n_expr.subs(x, tmp)
         current_index += 1
 
