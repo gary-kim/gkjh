@@ -2,7 +2,7 @@ import pytest
 
 import sympy as sp
 
-from gkjh.misc import subs
+from gkjh import phasor2sympy, subs
 
 
 def test_subs_basic():
@@ -52,3 +52,21 @@ def test_subs_with_fns_and_known():
     assert sp.Eq(subs(c, vals), 20 * a, evaluate=True)
     assert sp.Eq(subs(d, vals), 4 * a, evaluate=True)
     assert subs(e, vals) == 12
+
+
+def test_phasor2sympy():
+    a, b, c = sp.symbols("a, b, c")
+
+    vals = {}
+    vals[a] = 10
+    vals[b] = sp.Rational(45, 2)
+    vals[c] = phasor2sympy(a, b * 2)
+
+    assert subs(a, vals) == 10
+    assert sp.Eq(subs(b, vals), sp.Rational(45, 2), evaluate=True)
+    assert sp.Eq(
+        subs(c, vals),
+        10 / sp.sqrt(2) + sp.I / sp.sqrt(2) * 10,
+        evaluate=True
+    )
+
