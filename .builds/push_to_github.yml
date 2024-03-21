@@ -7,6 +7,9 @@ secrets:
   - "6bb07c85-481f-40fd-bf9e-0ae1bf3466b6"
 tasks:
   - push: |
+      # Quit if not from push
+      if [[ "$BUILD_SUBMITTER" != "git.sr.ht" ]]; then exit 0; fi
+
       cd gkjh
       git remote add github git@github.com:gary-kim/gkjh
       git push --all github
