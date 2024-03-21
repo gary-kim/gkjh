@@ -68,25 +68,32 @@ def subs(expr, vals, recurse=math.inf):
 
 
 def phasor2sympy(magnitude, angle):
-    return magnitude * (sp.cos(angle * sp.pi / 180) + sp.I * sp.sin(angle * sp.pi / 180))
+    return magnitude * (
+        sp.cos(angle * sp.pi / 180) + sp.I * sp.sin(angle * sp.pi / 180)
+    )
 
 
 def sympy2phasor(value, round_value):
     mag = abs(value)
     ang = sp.arg(value) * 180 / sp.pi
 
-    if hasattr(mag, 'evalf'):
+    if hasattr(mag, "evalf"):
         mag = mag.evalf()
 
-    if hasattr(ang, 'evalf'):
+    if hasattr(ang, "evalf"):
         ang = ang.evalf()
 
     return {"magnitude": round(mag, round_value), "angle": round(ang, round_value)}
 
 
-
 def sphasor2str(value, round_value):
-    return str(float(round(abs(value).evalf(), round_value))) + "⦟" + str(round_expr((sp.arg(value) * 180 / sp.pi).evalf(), round_value, zeros=True))
+    return (
+        str(float(round(abs(value).evalf(), round_value)))
+        + "⦟"
+        + str(
+            round_expr((sp.arg(value) * 180 / sp.pi).evalf(), round_value, zeros=True)
+        )
+    )
 
 
 def sphasor2euler(value):
@@ -107,12 +114,12 @@ def strip_units(expr):
 
 def get_units(expr):
     tmp = expr.subs({n: 1 for n in expr.args if not n.has(units.quantities.Quantity)})
-    tmp = tmp.xreplace({n : sp.Integer(round(n, 0)) for n in tmp.atoms(sp.Number)})
+    tmp = tmp.xreplace({n: sp.Integer(round(n, 0)) for n in tmp.atoms(sp.Number)})
     return tmp
 
 
 def clean_units(expr):
-    us = get_units (expr)
+    us = get_units(expr)
     nums = strip_units(expr)
     return put_units(nums, us)
 
@@ -134,11 +141,15 @@ def display_vals(vals, to_display=False):
     for su in to_display:
         if isinstance(su, (tuple)):
             if len(su) == 3:
-                display(sp.Eq(su[0], units.convert_to(vals[su[0]] * su[1], su[2]).simplify()))
+                display(
+                    sp.Eq(
+                        su[0], units.convert_to(vals[su[0]] * su[1], su[2]).simplify()
+                    )
+                )
                 continue
             if len(su) == 2:
-               display(sp.Eq(su[0], put_units(vals[su[0]], su[1])))
-               continue
+                display(sp.Eq(su[0], put_units(vals[su[0]], su[1])))
+                continue
         display(sp.Eq(su, vals[su]))
 
 
@@ -174,7 +185,5 @@ def circuit_series(*args):
 def circuit_parallel(*args):
     val = sp.Number(0)
     for a in args:
-        val += a ** -1
-    return val ** -1
-
-
+        val += a**-1
+    return val**-1
