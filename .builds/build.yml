@@ -1,10 +1,13 @@
 ---
-image: fedora/39
+image: fedora/latest
 packages:
   - python-pip
+  - python3-pytest
 sources:
   - "https://git.sr.ht/~gary-kim/gkjh"
 tasks:
   - install: |
       pip install -e gkjh
+  - tests: |
+      cd gkjh && pytest
 
