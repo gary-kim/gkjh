@@ -2,8 +2,16 @@
 
 [![builds.sr.ht status](https://builds.sr.ht/~gary-kim/gkjh.svg)](https://builds.sr.ht/~gary-kim/gkjh)
 
+Canonical source: https://sr.ht/~gary-kim/gkjh
+
 Personal miscellaneous helpers for Jupyter notebooks. Used for school
 assignments.
+
+### Contributing
+
+Currently, this is a mostly personal use library. If you are interested in
+making changes, please send an email to the
+[gkjh-discuss](mailto:~gary-kim/gkjh-discuss@lists.sr.ht) mailing list first.
 
 ### License
 
