@@ -12,5 +12,5 @@ tasks:
   - tests: |
       cd gkjh && pytest
   - style: |
-      cd gkjh && black gkjh/ tests/
+      cd gkjh && black --check gkjh/ tests/
 
