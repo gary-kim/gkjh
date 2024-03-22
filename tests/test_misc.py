@@ -18,7 +18,7 @@ import pytest
 import sympy as sp
 import sympy.physics.units as units
 
-from gkjh import phasor2sympy, subs, get_units, strip_units
+from gkjh import phasor2sympy, subs, get_units, strip_units, clean_units
 
 
 def test_subs_basic():
@@ -94,3 +94,16 @@ def test_units():
 
     assert sp.Eq(strip_units(subs(d, vals)), sp.Rational(3, 4 * 5))
     assert sp.Eq(get_units(subs(d, vals)), units.meters / units.s**2)
+
+
+def test_subs_with_number():
+    assert subs(10, {}) == 10
+    assert subs(-10, {}) == -10
+
+
+def test_clean_units():
+    val_a = 10 * units.s / units.m
+    val_b = -30.3 * units.m / units.s**2
+
+    assert sp.Eq(clean_units(val_a), val_a)
+    assert sp.Eq(clean_units(val_b), val_b)
