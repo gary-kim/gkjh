@@ -1,8 +1,24 @@
+# Copyright (C) 2024 Gary Kim <gary@garykim.dev>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import pytest
 
 import sympy as sp
+import sympy.physics.units as units
 
-from gkjh import phasor2sympy, subs
+from gkjh import phasor2sympy, subs, get_units, strip_units
 
 
 def test_subs_basic():
@@ -64,9 +80,17 @@ def test_phasor2sympy():
 
     assert subs(a, vals) == 10
     assert sp.Eq(subs(b, vals), sp.Rational(45, 2), evaluate=True)
-    assert sp.Eq(
-        subs(c, vals),
-        10 / sp.sqrt(2) + sp.I / sp.sqrt(2) * 10,
-        evaluate=True
-    )
+    assert sp.Eq(subs(c, vals), 10 / sp.sqrt(2) + sp.I / sp.sqrt(2) * 10, evaluate=True)
 
+
+def test_units():
+    a, b, c, d = sp.symbols("a, b, c, d")
+
+    vals = {}
+    vals[a] = 3 * units.meters
+    vals[b] = 4 * units.s
+    vals[c] = 5 * units.s
+    vals[d] = a / b / c
+
+    assert sp.Eq(strip_units(subs(d, vals)), sp.Rational(3, 4 * 5))
+    assert sp.Eq(get_units(subs(d, vals)), units.meters / units.s**2)
