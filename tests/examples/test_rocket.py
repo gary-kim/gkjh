@@ -99,8 +99,6 @@ def test_rocket_launch():
 
     vals = {k: subs(v, vals) for k, v in vals.items()}
 
-    print(vals)
-
     assert vals[mach_exit] == 4
     assert vals[mach_2] == 1
     assert vals[m_payload] == 907

@@ -17,6 +17,8 @@ from .misc import (
     display_boxed,
     circuit_series,
     circuit_parallel,
+    pd_num,
+    subs_vals,
 )
 
 try:

@@ -67,6 +67,11 @@ def subs(expr, vals, recurse=math.inf):
         current_index += 1
 
 
+def subs_vals(vals: dict) -> dict:
+    """subs_vals runs subs(v, vals) for all values in vals."""
+    return {k: subs(v, vals) for k, v in vals.items()}
+
+
 def phasor2sympy(magnitude, angle):
     return magnitude * (
         sp.cos(angle * sp.pi / 180) + sp.I * sp.sin(angle * sp.pi / 180)
