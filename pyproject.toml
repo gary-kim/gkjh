@@ -1,13 +1,35 @@
 [project]
 name = "gkjh"
 description = "Gary Kim Jupyter Helpers"
-version = "0.1.0"
 readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">= 3.8"
+
+dynamic = ["version"]
 
 dependencies = [
-    "sympy",
-    "matplotlib"
+    "sympy==1.12",
+    "matplotlib>=3.8"
 ]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "pytest"
+]
+
+[build-system]
+requires = [
+    "setuptools>=60",
+    "setuptools-scm>=8.0"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[project.urls]
+Homepage = "https://sr.ht/~gary-kim/gkjh"
+Repository = "https://git.sr.ht/~gary-kim/gkjh"
 
 [[project.authors]]
 name = "Gary Kim"

@@ -1,3 +1,4 @@
+from importlib.metadata import version, PackageNotFoundError
 from .expr_formatting import round_expr, scin_expr
 from .misc import (
     subs,
@@ -17,3 +18,9 @@ from .misc import (
     circuit_series,
     circuit_parallel,
 )
+
+try:
+    __version__ = version("package-name")
+except PackageNotFoundError:
+    # package is not installed
+    pass
