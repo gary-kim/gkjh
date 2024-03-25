@@ -34,7 +34,9 @@ from sympy.physics import units
 from .expr_formatting import round_expr
 
 
-def package_versions(packages=["gkjh", "sympy", "matplotlib"], header_and_footer=True) -> str:
+def package_versions(
+    packages=["gkjh", "sympy", "matplotlib"], header_and_footer=True
+) -> str:
     """
     package_versions provides a list of the given package versions.
 
@@ -46,8 +48,18 @@ def package_versions(packages=["gkjh", "sympy", "matplotlib"], header_and_footer
     if header_and_footer:
         tr = ["== GKJH: Gary Kim Jupyter Helpers =="]
 
-    packages = sorted(packages)
+    if "gkjh" in packages:
+        package = importlib.import_module("gkjh")
+        if hasattr(package, "__version__"):
+            tr.append(f"{package_name}=={package.__version__}")
+        else:
+            tr.append(f"{package_name}==unknown")
+
+    packages = sorted([packages])
     for package_name in packages:
+        if package_name == "gkjh":
+            continue
+
         package = importlib.import_module(package_name)
         if hasattr(package, "__version__"):
             tr.append(f"{package_name}=={package.__version__}")
