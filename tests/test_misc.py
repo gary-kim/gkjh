@@ -25,6 +25,7 @@ from gkjh import (
     strip_units,
     clean_units,
     package_versions,
+    put_units,
 )
 
 
@@ -105,6 +106,10 @@ def test_units():
 
     assert sp.Eq(strip_units(subs(d, vals)), sp.Rational(3, 4 * 5))
     assert sp.Eq(get_units(subs(d, vals)), units.meters / units.s**2)
+    assert sp.Eq(
+        put_units(strip_units(subs(d, vals)), units.meters),
+        sp.Rational(3, 4 * 5) * units.meters,
+    )
 
 
 def test_subs_with_number():
