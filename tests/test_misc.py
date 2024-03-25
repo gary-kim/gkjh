@@ -18,7 +18,18 @@ import pytest
 import sympy as sp
 import sympy.physics.units as units
 
-from gkjh import phasor2sympy, subs, get_units, strip_units, clean_units
+from gkjh import (
+    phasor2sympy,
+    subs,
+    get_units,
+    strip_units,
+    clean_units,
+    package_versions,
+)
+
+
+def test_package_versions():
+    assert package_versions() != ""
 
 
 def test_subs_basic():

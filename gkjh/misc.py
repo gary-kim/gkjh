@@ -20,6 +20,7 @@ Many unnecessary functions are currently part of this module
 """
 
 import math
+import importlib
 
 try:
     from IPython.display import display, display_latex
@@ -31,6 +32,22 @@ import sympy as sp
 from sympy.physics import units
 
 from .expr_formatting import round_expr
+
+
+def package_versions(packages=["gkjh", "sympy", "matplotlib"]) -> str:
+    """
+    Provides a list of versions of the provided package list for reproducibility
+    reference (defaulting to those included with gkjh).
+    """
+    tr = []
+    for package_name in packages:
+        package = importlib.import_module(package_name)
+        if hasattr(package, "__version__"):
+            tr.append(f"{package_name}=={package.__version__}")
+        else:
+            tr.append(f"{package_name}==unknown")
+
+    return "\n".join(tr)
 
 
 def pd_num(num, make_scin=False):

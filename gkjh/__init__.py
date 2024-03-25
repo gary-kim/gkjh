@@ -19,10 +19,11 @@ from .misc import (
     circuit_parallel,
     pd_num,
     subs_vals,
+    package_versions,
 )
 
 try:
-    __version__ = version("package-name")
+    __version__ = version("gkjh")
 except PackageNotFoundError:
     # package is not installed
     pass
