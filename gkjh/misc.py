@@ -66,7 +66,6 @@ def package_versions(
         if package_name == "gkjh" or package_name == "python":
             continue
 
-        print(package_name)
         if fatal:
             try:
                 package = importlib.import_module(package_name)
