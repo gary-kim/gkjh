@@ -51,15 +51,15 @@ def package_versions(
     if header_and_footer:
         tr = ["== GKJH: Gary Kim Jupyter Helpers =="]
 
+    if "python" in packages:
+        tr.append(f'"python=={sys.version}"')
+
     if "gkjh" in packages:
         package = importlib.import_module("gkjh")
         if hasattr(package, "__version__"):
             tr.append(f'"gkjh=={package.__version__}"')
         else:
             tr.append(f'"gjkh==unknown"')
-
-    if "python" in packages:
-        tr.append(f'"python=={sys.version}"')
 
     packages = sorted(packages)
     for package_name in packages:
