@@ -21,6 +21,7 @@ Many unnecessary functions are currently part of this module
 
 import math
 import importlib
+import sys
 
 try:
     from IPython.display import display, display_latex
@@ -35,7 +36,9 @@ from .expr_formatting import round_expr
 
 
 def package_versions(
-    packages=["gkjh", "sympy", "matplotlib"], header_and_footer=True
+    packages=["gkjh", "python", "sympy", "matplotlib"],
+    header_and_footer=True,
+    fatal=False,
 ) -> str:
     """
     package_versions provides a list of the given package versions.
@@ -51,20 +54,31 @@ def package_versions(
     if "gkjh" in packages:
         package = importlib.import_module("gkjh")
         if hasattr(package, "__version__"):
-            tr.append(f"{package_name}=={package.__version__}")
+            tr.append(f'"gkjh=={package.__version__}"')
         else:
-            tr.append(f"{package_name}==unknown")
+            tr.append(f'"gjkh==unknown"')
 
-    packages = sorted([packages])
+    if "python" in packages:
+        tr.append(f'"python=={sys.version}"')
+
+    packages = sorted(packages)
     for package_name in packages:
-        if package_name == "gkjh":
+        if package_name == "gkjh" or package_name == "python":
             continue
 
+        print(package_name)
+        if fatal:
+            try:
+                package = importlib.import_module(package_name)
+            except:
+                pass
+
         package = importlib.import_module(package_name)
+
         if hasattr(package, "__version__"):
-            tr.append(f"{package_name}=={package.__version__}")
+            tr.append(f'"{package_name}=={package.__version__}"')
         else:
-            tr.append(f"{package_name}==unknown")
+            tr.append(f'"{package_name}==unknown"')
 
     if header_and_footer:
         tr.append("====================================")
