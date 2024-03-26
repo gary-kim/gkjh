@@ -12,6 +12,8 @@ jobs:
         uses: actions/checkout@v4
       - name: install dependencies
         run: dnf install -y python-pip python3-pytest black
+      - name: install gkjh
+        run: pip install -e gkjh
       - name: test
         run: |
           black --check gkjh/ tests/
