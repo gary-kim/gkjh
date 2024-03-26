@@ -1,0 +1,17 @@
+name: test
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: garykim/personal-tools-image:latest
+    steps:
+      - name: install dependencies
+        run: dnf install python-pip python3-pytest black
+      - name: test
+        run: |
+          black --check gkjh/ tests/
+          pytest
+
