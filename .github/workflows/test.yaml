@@ -1,0 +1,21 @@
+name: test
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: garykim/personal-tools-image:latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: install dependencies
+        run: dnf install -y python-pip python3-pytest black
+      - name: install gkjh
+        run: pip install -e .
+      - name: test
+        run: |
+          black --check gkjh/ tests/
+          pytest
+
