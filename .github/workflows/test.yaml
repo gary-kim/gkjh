@@ -13,7 +13,7 @@ jobs:
       - name: install dependencies
         run: dnf install -y python-pip python3-pytest black
       - name: install gkjh
-        run: pip install -e gkjh
+        run: pip install -e .
       - name: test
         run: |
           black --check gkjh/ tests/
