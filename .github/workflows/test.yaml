@@ -9,7 +9,7 @@ jobs:
       image: garykim/personal-tools-image:latest
     steps:
       - name: install dependencies
-        run: dnf install python-pip python3-pytest black
+        run: dnf install -y python-pip python3-pytest black
       - name: test
         run: |
           black --check gkjh/ tests/
