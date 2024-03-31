@@ -36,6 +36,10 @@ dev = [
     "pytest"
 ]
 
+extras= [
+    "pandas_datareader>=0.10.0"
+]
+
 [build-system]
 requires = [
     "setuptools>=60",
