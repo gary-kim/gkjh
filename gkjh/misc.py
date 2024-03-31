@@ -36,7 +36,7 @@ from .expr_formatting import round_expr
 
 
 def package_versions(
-    packages=["gkjh", "python", "sympy", "matplotlib", "pandas"],
+    packages=["gkjh", "python", "sympy", "matplotlib", "pandas", "control"],
     header_and_footer=True,
     fatal=False,
 ) -> str:
