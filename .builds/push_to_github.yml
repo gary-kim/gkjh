@@ -12,4 +12,4 @@ tasks:
 
       cd gkjh
       git remote add github git@github.com:gary-kim/gkjh
-      git push --all github
+      git push --force --all github
