@@ -13,34 +13,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import pytest
 
-from importlib.metadata import version, PackageNotFoundError
-from .expr_formatting import round_expr, scin_expr
-from .misc import (
-    subs,
-    phasor2sympy,
-    sympy2phasor,
-    sphasor2str,
-    sphasor2euler,
-    put_units,
-    strip_units,
-    get_units,
-    clean_units,
-    display_eqns,
-    display_vals,
-    display_vals_v2,
-    display_knowns,
-    display_boxed,
-    circuit_series,
-    circuit_parallel,
-    pd_num,
-    subs_vals,
-    package_versions,
-)
-from . import lambdas
+import sympy as sp
+import sympy.physics.units as units
 
-try:
-    __version__ = version("gkjh")
-except PackageNotFoundError:
-    # package is not installed
-    pass
+import gkjh
+
+
+def test_subs_basic():
+    a, b, c, d = sp.symbols("a, b, c, d")
+
+    vals = {}
+    vals[a] = 5
+    vals[b] = 6
+    vals[c] = a + b
+    vals[d] = c * 3
+
+    ls = gkjh.lambdas.subs(vals)
+
+    assert ls(a) == 5
+    assert ls(b) == 6
+    assert ls(c) == 11
+    assert ls(d) == 33

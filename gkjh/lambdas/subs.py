@@ -14,33 +14,37 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from importlib.metadata import version, PackageNotFoundError
-from .expr_formatting import round_expr, scin_expr
-from .misc import (
-    subs,
-    phasor2sympy,
-    sympy2phasor,
-    sphasor2str,
-    sphasor2euler,
-    put_units,
-    strip_units,
-    get_units,
-    clean_units,
-    display_eqns,
-    display_vals,
-    display_vals_v2,
-    display_knowns,
-    display_boxed,
-    circuit_series,
-    circuit_parallel,
-    pd_num,
-    subs_vals,
-    package_versions,
-)
-from . import lambdas
+"""
+Various pre-made static methods for use for expression formatting or subs.
 
-try:
-    __version__ = version("gkjh")
-except PackageNotFoundError:
-    # package is not installed
-    pass
+This class provides various static methods for use with functions such as
+display_subs_v2.
+
+Example use:
+```
+import sympy as sp
+from ..misc import display_vals_v2, subs_lambdas
+
+a, b = sp.symbols("a, b")
+
+vals = {}
+vals[a] = 1
+vals[b] = a + a
+
+display_vals_v2(vals, [a, subs_lambdas.subs(vals)])
+```
+"""
+
+from ..misc import subs as gkjh_subs
+
+
+def subs(vals: dict):
+    """
+    Call subs with a given vals dict.
+
+    Example use:
+    ```
+    display_vals_v2(vals, [a, subs_lambdas.subs(vals)])
+    ```
+    """
+    return lambda x: gkjh_subs(x, vals)
