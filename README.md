@@ -2,7 +2,11 @@
 
 [![builds.sr.ht status](https://builds.sr.ht/~gary-kim/gkjh.svg)](https://builds.sr.ht/~gary-kim/gkjh)
 
-Canonical source: https://sr.ht/~gary-kim/gkjh
+* Project Home: https://sr.ht/~gary-kim/gkjh
+* Source Code: https://git.sr.ht/~gary-kim/gkjh
+* Development Mailing List: https://lists.sr.ht/~gary-kim/gkjh-devel
+([~gary-kim/gkjh-devel@lists.sr.ht](mailto:~gary-kim/gkjh-devel@lists.sr.ht))
+* TODO: https://todo.sr.ht/~gary-kim/gkjh
 
 Personal miscellaneous helpers for Jupyter notebooks. Used for school
 assignments.
