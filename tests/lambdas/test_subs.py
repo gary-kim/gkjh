@@ -13,12 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import pytest
+import gkjh
 
 import sympy as sp
 import sympy.physics.units as units
-
-import gkjh
 
 
 def test_subs_basic():
@@ -36,3 +34,19 @@ def test_subs_basic():
     assert ls(b) == 6
     assert ls(c) == 11
     assert ls(d) == 33
+
+
+def test_put_units():
+
+    a = 5
+    b = 6
+    c = a + b
+    d = c * 3
+
+    assert sp.Eq(gkjh.lambdas.put_units(units.m)(a), 5 * units.m) == True
+    assert (
+        sp.Eq(gkjh.lambdas.put_units(units.m / units.s)(b), 6 * units.m / units.s)
+        == True
+    )
+    assert sp.Eq(gkjh.lambdas.put_units(units.A)(c), 11 * units.A) == True
+    assert sp.Eq(gkjh.lambdas.put_units(units.V)(d), 33 * units.V) == True

@@ -35,7 +35,7 @@ display_vals_v2(vals, [a, subs_lambdas.subs(vals)])
 ```
 """
 
-from ..misc import subs as gkjh_subs
+from ..misc import subs as gkjh_subs, put_units as gkjh_put_units
 
 
 def subs(vals: dict):
@@ -44,7 +44,25 @@ def subs(vals: dict):
 
     Example use:
     ```
-    display_vals_v2(vals, [a, subs_lambdas.subs(vals)])
+    import sympy.physics.units as units
+    from gkjh import display_vals_v2
+
+    display_vals_v2(vals, [(a, gkjh.lambdas.subs(vals))])
     ```
     """
     return lambda x: gkjh_subs(x, vals)
+
+
+def put_units(desired_unit):
+    """
+    Call put_units with a given unit
+
+    Example use:
+    ```
+    import sympy.physics.units as units
+    from gkjh import display_vals_v2
+
+    display_vals_v2(vals, [(v, gkjh.lambdas.put_units(units.m / units.s))])
+    ```
+    """
+    return lambda x: gkjh_put_units(x, desired_unit)
