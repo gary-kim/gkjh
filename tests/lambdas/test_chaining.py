@@ -13,6 +13,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import gkjh
 
-from .subs import subs, put_units
-from .chaining import chaining
+import sympy as sp
+import sympy.physics.units as units
+
+
+def test_chaining():
+    a, b, c, d = sp.symbols("a, b, c, d")
+
+    vals = {}
+    vals[a] = 5
+    vals[b] = 6
+    vals[c] = a + b
+    vals[d] = c * 3
+
+    ls = gkjh.lambdas.chaining(gkjh.lambdas.subs(vals), gkjh.lambdas.put_units(units.m))
+
+    assert ls(a) == 5 * units.m
+    assert ls(b) == 6 * units.m
+    assert ls(c) == 11 * units.m
+    assert ls(d) == 33 * units.m
