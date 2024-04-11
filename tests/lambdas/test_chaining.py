@@ -20,7 +20,7 @@ import sympy.physics.units as units
 
 
 def test_chaining():
-    a, b, c, d, e = sp.symbols("a, b, c, d, e")
+    a, b, c, d, e, f = sp.symbols("a, b, c, d, e, f")
 
     vals = {}
     vals[a] = 5
@@ -28,9 +28,13 @@ def test_chaining():
     vals[c] = a + b
     vals[d] = c * 3
     vals[e] = d / 66
+    vals[f] = e / 234
 
     ls = gkjh.lambdas.chaining(
-        gkjh.lambdas.subs(vals), gkjh.lambdas.put_units(units.m), gkjh.lambdas.evalf()
+        gkjh.lambdas.subs(vals),
+        gkjh.lambdas.put_units(units.m),
+        gkjh.lambdas.evalf(),
+        gkjh.lambdas.round_expr(3, zeros=True),
     )
 
     assert sp.Eq(ls(a), 5 * units.m)
@@ -38,3 +42,4 @@ def test_chaining():
     assert sp.Eq(ls(c), 11 * units.m)
     assert sp.Eq(ls(d), 33 * units.m)
     assert sp.Eq(ls(e), 0.5 * units.m)
+    assert sp.Eq(ls(f), sp.Rational(2, 1000) * units.m)

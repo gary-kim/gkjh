@@ -35,7 +35,13 @@ display_vals_v2(vals, [a, subs_lambdas.subs(vals)])
 ```
 """
 
-from ..misc import subs as gkjh_subs, put_units as gkjh_put_units
+from typing import Optional
+
+from ..misc import (
+    subs as gkjh_subs,
+    put_units as gkjh_put_units,
+    round_expr as gkjh_round_expr,
+)
 
 
 def subs(vals: dict):
@@ -86,3 +92,18 @@ def evalf():
     """
 
     return lambda x: x.evalf() if "evalf" in dir(x) else x
+
+
+def round_expr(figures: int, zeros: Optional[bool]):
+    """
+    round_expr the given sympy expression.
+
+    Example use:
+    ```
+    import gkjh
+
+    gkjh.display_vals_v2(vals, [(v, gkjh.lambdas.round_expr(3))])
+    ```
+    """
+
+    return lambda x: gkjh_round_expr(x, figures, zeros)

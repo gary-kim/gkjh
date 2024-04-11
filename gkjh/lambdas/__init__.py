@@ -14,5 +14,5 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from .subs import subs, put_units, evalf
+from .subs import subs, put_units, evalf, round_expr
 from .chaining import chaining

@@ -57,3 +57,11 @@ def test_evalf():
     ls = gkjh.lambdas.evalf()
 
     assert ls(a) == 0.2
+
+
+def test_round_expr():
+    a = sp.Rational(321, 1000)
+
+    ls = gkjh.lambdas.round_expr(2, zeros=True)
+
+    assert sp.Eq(ls(a), sp.Rational(32, 100))
