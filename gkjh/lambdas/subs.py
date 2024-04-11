@@ -45,6 +45,7 @@ def subs(vals: dict):
     Example use:
     ```
     import sympy.physics.units as units
+    import gkjh
     from gkjh import display_vals_v2
 
     display_vals_v2(vals, [(a, gkjh.lambdas.subs(vals))])
@@ -60,9 +61,28 @@ def put_units(desired_unit):
     Example use:
     ```
     import sympy.physics.units as units
+    import gkjh
     from gkjh import display_vals_v2
 
     display_vals_v2(vals, [(v, gkjh.lambdas.put_units(units.m / units.s))])
     ```
     """
     return lambda x: gkjh_put_units(x, desired_unit)
+
+
+def evalf():
+    """
+    evalf the given sympy expression.
+
+    Can properly handle being given values that do not have an evalf function.
+
+    Example use:
+    ```
+    import gkjh
+    from gkjh import display_vals_v2
+
+    display_vals_v2(vals, [(v, gkjh.lambdas.evalf())])
+    ```
+    """
+
+    return lambda x: x.evalf() if "evalf" in dir(x) else x

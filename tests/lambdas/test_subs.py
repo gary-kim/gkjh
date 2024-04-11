@@ -37,7 +37,6 @@ def test_subs_basic():
 
 
 def test_put_units():
-
     a = 5
     b = 6
     c = a + b
@@ -50,3 +49,11 @@ def test_put_units():
     )
     assert sp.Eq(gkjh.lambdas.put_units(units.A)(c), 11 * units.A) == True
     assert sp.Eq(gkjh.lambdas.put_units(units.V)(d), 33 * units.V) == True
+
+
+def test_evalf():
+    a = sp.Rational(1, 5)
+
+    ls = gkjh.lambdas.evalf()
+
+    assert ls(a) == 0.2
