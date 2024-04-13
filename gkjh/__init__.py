@@ -36,6 +36,7 @@ from .misc import (
     pd_num,
     subs_vals,
     package_versions,
+    short_assign,
 )
 from . import lambdas
 

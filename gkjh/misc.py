@@ -22,6 +22,7 @@ Many unnecessary functions are currently part of this module
 import math
 import importlib
 import sys
+from contextlib import contextmanager
 
 try:
     from IPython.display import display, display_latex
@@ -244,3 +245,21 @@ def circuit_parallel(*args):
     for a in args:
         val += a**-1
     return val**-1
+
+
+@contextmanager
+def short_assign(l):
+    """
+    For use as a managed resource to temporarily shorten a variable.
+
+
+    Example use:
+    ```
+    import gkjh
+
+    with gkjh.short_assign(gkjh.lambdas) as l:
+        l.subs(vals)
+        ...
+    ```
+    """
+    yield l

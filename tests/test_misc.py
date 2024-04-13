@@ -17,6 +17,7 @@ import pytest
 
 import sympy as sp
 import sympy.physics.units as units
+import gkjh
 
 from gkjh import (
     phasor2sympy,
@@ -123,3 +124,30 @@ def test_clean_units():
 
     assert sp.Eq(clean_units(val_a), val_a)
     assert sp.Eq(clean_units(val_b), val_b)
+
+
+def test_short_assign():
+    a, b, c, d, e, f = sp.symbols("a, b, c, d, e, f")
+
+    vals = {}
+    vals[a] = 5
+    vals[b] = 6
+    vals[c] = a + b
+    vals[d] = c * 3
+    vals[e] = d / 66
+    vals[f] = e / 234
+
+    with gkjh.short_assign(gkjh.lambdas) as l:
+        ls = l.chaining(
+            l.subs(vals),
+            l.put_units(units.m),
+            l.evalf(),
+            l.round_expr(3, zeros=True),
+        )
+
+    assert sp.Eq(ls(a), 5 * units.m)
+    assert sp.Eq(ls(b), 6 * units.m)
+    assert sp.Eq(ls(c), 11 * units.m)
+    assert sp.Eq(ls(d), 33 * units.m)
+    assert sp.Eq(ls(e), 0.5 * units.m)
+    assert sp.Eq(ls(f), sp.Rational(2, 1000) * units.m)
