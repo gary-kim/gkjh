@@ -3,6 +3,7 @@ image: fedora/latest
 packages:
   - python-pip
   - python3-pytest
+  - python3-build
   - black
 sources:
   - "https://git.sr.ht/~gary-kim/gkjh"
@@ -13,4 +14,6 @@ tasks:
       cd gkjh && pytest
   - style: |
       cd gkjh && black --check gkjh/ tests/
+  - build: |
+      cd gkjh && python3 -m build
 
