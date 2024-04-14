@@ -15,7 +15,8 @@ assignments.
 
 Currently, this is a mostly personal use library. If you are interested in
 making changes, please send an email to the
-[gkjh-discuss](mailto:~gary-kim/gkjh-discuss@lists.sr.ht) mailing list first.
+[~gary-kim/gkjh-discuss@lists.sr.ht](mailto:~gary-kim/gkjh-discuss@lists.sr.ht)
+mailing list first.
 
 ### License
 

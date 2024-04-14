@@ -23,7 +23,7 @@ display_subs_v2.
 Example use:
 ```
 import sympy as sp
-from ..misc import display_vals_v2, subs_lambdas
+from gkjh import display_vals_v2, subs_lambdas
 
 a, b = sp.symbols("a, b")
 
@@ -38,9 +38,9 @@ display_vals_v2(vals, [a, subs_lambdas.subs(vals)])
 from typing import Optional
 
 from ..misc import (
-    subs as gkjh_subs,
     put_units as gkjh_put_units,
     round_expr as gkjh_round_expr,
+    subs as gkjh_subs,
 )
 
 
@@ -62,7 +62,7 @@ def subs(vals: dict):
 
 def put_units(desired_unit):
     """
-    Call put_units with a given unit
+    Call put_units with a given unit.
 
     Example use:
     ```
@@ -78,7 +78,7 @@ def put_units(desired_unit):
 
 def evalf():
     """
-    evalf the given sympy expression.
+    Call evalf on the given sympy expression.
 
     Can properly handle being given values that do not have an evalf function.
 
@@ -90,7 +90,6 @@ def evalf():
     display_vals_v2(vals, [(v, gkjh.lambdas.evalf())])
     ```
     """
-
     return lambda x: x.evalf() if "evalf" in dir(x) else x
 
 
@@ -105,5 +104,4 @@ def round_expr(figures: int, zeros: Optional[bool]):
     gkjh.display_vals_v2(vals, [(v, gkjh.lambdas.round_expr(3))])
     ```
     """
-
     return lambda x: gkjh_round_expr(x, figures, zeros)
