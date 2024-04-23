@@ -146,7 +146,7 @@ def sympy2phasor(value, round_value):
 
 def sphasor2str(value, round_value):
     return (
-        str(float(round(abs(value).evalf(), round_value)))
+        str(round(float(abs(value).evalf()), round_value))
         + "⦟"
         + str(
             round_expr((sp.arg(value) * 180 / sp.pi).evalf(), round_value, zeros=True)
