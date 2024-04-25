@@ -16,4 +16,6 @@ tasks:
       cd gkjh && black --check gkjh/ tests/
   - build: |
       cd gkjh && python3 -m build
+  - validate: |
+      cd gkjh && scripts/check-patches origin/master..
 

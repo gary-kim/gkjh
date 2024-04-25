@@ -1,0 +1,91 @@
+#!/bin/sh
+# 
+# Taken from https://sr.ht/~rjarry/aerc
+# Modified slightly
+
+set -e
+
+revision_range="${1?revision range}"
+
+valid=0
+revisions=$(git rev-list --reverse "$revision_range")
+total=$(echo $revisions | wc -w)
+if [ "$total" -eq 0 ]; then
+	exit 0
+fi
+
+allowed_trailers="
+Fixes
+Implements
+References
+Link
+Changelog-added
+Changelog-fixed
+Changelog-changed
+Changelog-deprecated
+Cc
+Suggested-by
+Requested-by
+Reported-by
+Co-authored-by
+Signed-off-by
+Tested-by
+Reviewed-by
+Acked-by
+"
+
+
+n=0
+title=
+fail=false
+
+err() {
+	echo "error [PATCH $n/$total] '$title' $*" >&2
+	fail=true
+}
+
+for rev in $revisions; do
+	n=$((n + 1))
+	title=$(git log --format='%s' -1 "$rev")
+	fail=false
+
+	if [ "$(echo "$title" | wc -m)" -gt 72 ]; then
+		err "title is longer than 72 characters, please make it shorter"
+	fi
+
+	if ! echo "$title" | grep -qE '^[a-z0-9,{}/_-]+: '; then
+		err "title lacks a topic prefix (e.g. 'imap:')"
+	fi
+
+	author=$(git log --format='%an <%ae>' -1 "$rev")
+	if ! git log --format="%(trailers:key=Signed-off-by,only,valueonly,unfold)" -1 "$rev" |
+			grep -qFx "$author"; then
+		err "'Signed-off-by: $author' trailer is missing"
+	fi
+
+	for trailer in $(git log --format="%(trailers:only,keyonly)" -1 "$rev"); do
+		if ! echo "$allowed_trailers" | grep -qFx "$trailer"; then
+			err "trailer '$trailer' is misspelled or not in the sanctioned list"
+		fi
+	done
+
+	if git log --format="%(trailers:only,unfold)" -1 "$rev" | \
+			grep -vE '^Changelog-[a-z]+: [A-Z`\*_].+\.$' | \
+			grep -qE '^Changelog-[a-z]+: '; then
+		err "Changelog-* trailers should start with a capital letter and end with a period"
+	fi
+
+	body=$(git log --format='%b' -1 "$rev")
+	body=${body%$(git log --format='%(trailers)' -1 "$rev")}
+
+	if [ "$fail" = true ]; then
+		continue
+	fi
+	echo "ok    [PATCH $n/$total] '$title'"
+	valid=$((valid + 1))
+done
+
+echo "$valid/$total valid patches"
+if [ "$valid" -ne "$total" ]; then
+	exit 1
+fi
